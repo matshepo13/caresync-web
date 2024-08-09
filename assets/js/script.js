@@ -89,6 +89,30 @@ const revealElementOnScroll = function () {
   }
 }
 
+
+
+ 
 window.addEventListener("scroll", revealElementOnScroll);
 
 window.addEventListener("load", revealElementOnScroll);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector("[data-header]");
+  const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+  const navbar = document.querySelector("[data-navbar]");
+  const overlay = document.querySelector("[data-overlay]");
+
+  const toggleNavbar = () => {
+    navbar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    document.body.classList.toggle("nav-active");
+  }
+
+  navTogglers.forEach(toggler => {
+    toggler.addEventListener("click", toggleNavbar);
+  });
+
+
+});
+
+

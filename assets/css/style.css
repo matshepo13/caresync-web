@@ -3,7 +3,7 @@
 \*-----------------------------------*/
 
 /**
- * copyright 2022 codewithsadee
+ * copyright 2022 Matshepo
  */
 
 
@@ -27,7 +27,7 @@
   --independece: hsl(236, 14%, 39%);
   --verdigris: hsl(182, 100%, 35%);
   --ming: hsl(186, 72%, 24%);
-  --space-cadet: hsla(226, 45%, 24%);
+  --space-cadet: hsl(182, 100%, 35%);
   --eerie-black: hsl(0, 0%, 13%);
   --alice-blue: hsl(187, 25%, 94%);
   --gray-web: hsl(0, 0%, 50%);
@@ -213,7 +213,7 @@ body.nav-active { overflow: hidden; }
 }
 
 .btn {
-  background-color: var(--verdigris);
+  background-image: linear-gradient(to right, hsl(186, 72%, 24%) 0%, hsl(186, 72%, 24%)  51%, hsl(222, 44%, 8%)  100%);
   color: var(--white);
   font-weight: var(--fw-700);
   padding: 12px 36px;
@@ -229,7 +229,7 @@ body.nav-active { overflow: hidden; }
   left: -100%;
   width: 100%;
   height: 100%;
-  background-color: var(--eerie-black);
+  background-color: var(--midnight-green);
   border-radius: var(--radius-6);
   transition: var(--transition-2);
   z-index: -1;
@@ -534,10 +534,11 @@ body.nav-active { overflow: hidden; }
 
 
 /*-----------------------------------*\
-  #ABOUT
+  #Patients Page Style
 \*-----------------------------------*/
 
-.about { padding-block-end: 0; }
+.about { padding-block-end: 0; 
+   background-color: var(--gray-web); }
 
 .about .container {
   display: grid;
@@ -553,7 +554,7 @@ body.nav-active { overflow: hidden; }
 }
 
 .tab-btn {
-  background-color: var(--alice-blue);
+  background-color: var( --middle-blue-green_40);
   color: var(--midnight-green);
   padding: 7px 30px;
   border-radius: var(--radius-6);
@@ -591,25 +592,36 @@ body.nav-active { overflow: hidden; }
   #LISTING
 \*-----------------------------------*/
 
-.listing { background-color: var(--alice-blue); }
+.listing { background-color: var( --space-cadet); }
+.listing-card:is(:hover, :focus-visible) { border-color: var(--white); }
 
 .listing-card {
-  padding: 25px 16px;
+  padding: 35px 25px;
   display: flex;
-  gap: 20px;
+  flex-direction: column; /* Stack content vertically */
+  gap: 30px;
   border: 2px solid var(--middle-blue-green_40);
   border-radius: var(--radius-12);
   transition: var(--transition-1);
+  height: 250px; /* Set a fixed height */
+  width: 100%; /* Ensure full width within grid */
+  box-sizing: border-box; /* Include padding in width/height calculation */
 }
-
-.listing-card:is(:hover, :focus-visible) { border-color: var(--verdigris); }
 
 .listing-card .card-title {
   margin-block-end: 5px;
   font-family: var(--ff-oswald);
+  flex-grow: 1; /* Allow title to grow and push content to bottom */
 }
 
-.listing-card .card-text { color: var(--midnight-green); }
+.listing-card .card-text {
+  color: var(--midnight-green);
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  display: -webkit-box;
+  line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+}
 
 
 
