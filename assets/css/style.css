@@ -341,7 +341,7 @@ body.nav-active { overflow: hidden; }
 }
 
 .nav-open-btn {
-  color: var(--white);
+  color: var(--gray-web);
   font-size: 4rem;
 }
 
@@ -378,19 +378,19 @@ body.nav-active { overflow: hidden; }
   position: absolute;
   top: 15px;
   right: 20px;
-  color: var(--white);
+  color: var(--gray-web);
   font-size: 2.8rem;
 }
 
 .navbar-list {
   margin-block-end: 30px;
-  border-block-end: 1px solid var(--white_a10);
+  border-block-end: 1px solid var(--gray-web);
 }
 
-.navbar-item { border-block-start: 1px solid var(--white_a10); }
+.navbar-item { border-block-start: 1px solid var(--gray-web); }
 
 .navbar-link {
-  color: var(--white);
+  color: var(--gray-web);
   text-transform: uppercase;
   padding: 10px 24px;
 }
@@ -538,7 +538,7 @@ body.nav-active { overflow: hidden; }
 \*-----------------------------------*/
 
 .about { padding-block-end: 0; 
-   background-color: var(--gray-web); }
+   background-color: var(---alice-blue); }
 
 .about .container {
   display: grid;
@@ -582,6 +582,57 @@ body.nav-active { overflow: hidden; }
   color: var(--verdigris);
   font-size: 2rem;
   flex-shrink: 0;
+}
+
+/* Add this to your existing CSS file */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.patient-list-table {
+  width: 150%;
+  min-width: 1200px; /* This ensures the table is wider */
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: var(--ff-rubik);
+}
+
+.patient-list-table th,
+.patient-list-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--gainsboro);
+}
+
+.patient-list-table th {
+  background-color: var(--alice-blue);
+  font-weight: var(--fw-700);
+  color: var(--midnight-green);
+}
+
+.patient-list-table tbody tr:nth-child(even) {
+  background-color: var(--white);
+}
+
+.patient-list-table tbody tr:nth-child(odd) {
+  background-color: var(--alice-blue);
+}
+
+.patient-list-table tbody tr:hover {
+  background-color: var(--middle-blue-green_40);
+}
+
+@media screen and (max-width: 600px) {
+  .patient-list-table {
+    font-size: 14px;
+  }
+  
+  .patient-list-table th,
+  .patient-list-table td {
+    padding: 8px 10px;
+  }
 }
 
 

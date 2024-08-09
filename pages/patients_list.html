@@ -34,8 +34,7 @@
   <!-- 
     - preload images
   -->
-  <link rel="preload" as="image" href="../assets/images/hero-banner.png">
-  <link rel="preload" as="image" href="../assets/images/hero-bg.png">
+
 
 </head>
 
@@ -142,7 +141,7 @@
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <a href="#" class="btn has-before title-md">Add A Patient</a>
+      <a href="#" class="btn has-before title-md" id="addPatientBtn">Add A Patient</a>
 
       <div class="overlay" data-nav-toggler data-overlay></div>
 
@@ -185,13 +184,12 @@
 
           <div class="about-content">
 
-            <p class="section-subtitle title-lg has-after" id="about-label" data-reveal="left">About Us</p>
+            <p class="section-subtitle title-lg has-after" id="about-label" data-reveal="left"></p>
 
-            <h2 class="headline-md" data-reveal="left">Experienced Workers</h2>
+            <h2 class="headline-md" data-reveal="left">Orthopedics Database</h2>
 
             <p class="section-text" data-reveal="left">
-              Aliquam faucibus, odio nec commodo aliquam, neque felis placerat dui, a porta ante lectus dapibus est.
-              Aliquam
+              Aliquam faucibus, odio nec commodo aliquam, neque felis placerat dui, a porta ante 
             </p>
 
             <ul class="tab-list" data-reveal="left">
@@ -210,10 +208,51 @@
 
             </ul>
 
-            <p class="tab-text" data-reveal="left">
-              Aliquam faucibus, odio nec commodo aliquam, neque felis placerat dui, a porta ante lectus dapibus est.
-              Aliquam a bibendum mi, sed condimentum
-            </p>
+
+<div class="table-container" data-reveal="left">
+    <table class="patient-list-table">
+      <thead>
+        <tr>
+          <th>Identity Number</th>
+          <th>First Name</th>
+          <th>Surname</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Contact Num</th>
+          <th>Email</th>
+          <th>Home Address</th>
+          <th>MRN</th>
+          <th>Medical History</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div
+            
 
             <div class="wrapper">
 
@@ -243,7 +282,7 @@
                   <span class="span">Aolore magna aliqua</span>
                 </li>
 
-              </ul>
+              </ul> 
 
             </div>
 
@@ -500,7 +539,55 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script type="module" src="../assets/js/firebase-config.js"></script>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+    import { getFirestore, collection, getDocs, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+    import { firebaseConfig } from '../assets/js/firebase-config.js';
+    import createAddPatientModal from '../assets/js/addPatientModal.js';
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      const addPatientBtn = document.querySelector('.btn.has-before.title-md');
+      const showModal = createAddPatientModal(db, addDoc, collection);
+  
+      addPatientBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        showModal();
+      });
+  
+      // Load existing patients from Firestore
+      loadPatients();
+    });
+  
+    async function loadPatients() {
+      const patientsCollection = collection(db, "PatientList");
+      const querySnapshot = await getDocs(patientsCollection);
+      querySnapshot.forEach((doc) => {
+        appendPatientToTable(doc.data());
+      });
+    }
+  
+    function appendPatientToTable(patientData) {
+      const table = document.querySelector('.patient-list-table tbody');
+      const newRow = table.insertRow();
+      
+      const fields = [
+        'idNumber', 'firstName', 'surname', 'dateOfBirth', 'gender',
+        'contactNumber', 'email', 'homeAddress', 'mrn', 'medicalHistory'
+      ];
+  
+      fields.forEach(field => {
+        const cell = newRow.insertCell();
+        cell.textContent = patientData[field] || '';
+      });
+    }
+  </script>
 
 </body>
 
-</html>
