@@ -1,0 +1,28 @@
+<div id="xrayModal" class="modal">
+    <div class="modal-content">
+      <h2 id="modalTitle">X-ray Folder</h2>
+      <div id="documentList">
+        <!-- Documents will be dynamically added here -->
+      </div>
+      <button id="addDocumentBtn" class="btn has-before">Add Document</button>
+    </div>
+  </div>
+  
+  <div id="addDocumentModal" class="modal">
+    <div class="modal-content">
+      <h2>Add Document</h2>
+      <form id="addDocumentForm">
+        <input type="text" name="practitionerName" placeholder="Health Practitioner Name" required>
+        <input type="text" name="position" placeholder="Position" required>
+        <input type="date" name="date" required>
+        <div id="dropZone">
+          Drag and drop files here or click to upload
+          <input type="file" id="fileInput" accept="image/*,.pdf" style="display: none;">
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn has-before">Save</button>
+          <button type="button" class="btn cancel" id="cancelAddDocument">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>

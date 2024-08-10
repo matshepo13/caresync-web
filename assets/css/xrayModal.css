@@ -1,0 +1,69 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: var(--white);
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: var(--radius-12);
+    width: 90%;
+    max-width: 800px;
+    box-shadow: var(--shadow-2);
+  }
+  
+  #modalTitle {
+    color: var(--midnight-green);
+    margin-bottom: 20px;
+  }
+  
+  #documentList {
+    margin-bottom: 20px;
+  }
+  
+  #addDocumentBtn {
+    float: right;
+  }
+
+  #addDocumentForm {
+    display: grid;
+    gap: 15px;
+  }
+  
+  #addDocumentForm input,
+  #addDocumentForm #dropZone {
+    padding: 10px;
+    border: 1px solid var(--gainsboro);
+    border-radius: var(--radius-6);
+    font-family: var(--ff-rubik);
+  }
+  
+  #dropZone {
+    border: 2px dashed var(--gainsboro);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  #dropZone.dragover {
+    background-color: var(--light-gray);
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn.cancel {
+    background-color: var(--ming);
+    color: var(--white);
+  }

@@ -39,7 +39,7 @@ function appendPatientToTable(patientData) {
   
     fields.forEach((field, index) => {
       const cell = newRow.insertCell();
-      if (index === 1 || index === 2) { // firstName and surname
+      if (index === 1) { // firstName
         const nameButton = document.createElement('button');
         nameButton.textContent = patientData[field] || '';
         nameButton.classList.add('patient-name-btn');
@@ -57,6 +57,3 @@ function appendPatientToTable(patientData) {
     const params = new URLSearchParams(patientData);
     window.location.href = `patient_details.html?${params.toString()}`;
   }
-  
-  // Make sure loadPatientDetails is available globally
-  window.loadPatientDetails = loadPatientDetails;
