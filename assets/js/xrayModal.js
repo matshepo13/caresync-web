@@ -11,18 +11,16 @@ export async function initializeXrayModal(patientId) {
     btn.addEventListener('click', () => {
       const cardTitle = btn.closest('.record-card').querySelector('.card-title').textContent;
       document.getElementById('modalTitle').textContent = cardTitle + ' Folder';
-      updateDocumentList(patientId);
+      const documentType = cardTitle.toLowerCase(); // Use the card title as the document type
+      updateDocumentList(patientId, documentType);
       modal.style.display = 'block';
     });
   });
 
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
+  addDocumentBtn.addEventListener('click', () => {
+    const documentType = document.getElementById('modalTitle').textContent.split(' ')[0].toLowerCase();
+    showAddDocumentModal(patientId, documentType);
   });
-
-  addDocumentBtn.addEventListener('click', () => showAddDocumentModal(patientId));
 }
 
 async function loadModalHTML() {
@@ -31,12 +29,12 @@ async function loadModalHTML() {
   document.body.insertAdjacentHTML('beforeend', html);
 }
 
-async function updateDocumentList(patientId) {
+async function updateDocumentList(patientId, documentType) {
   const documentList = document.getElementById('documentList');
   documentList.innerHTML = '';
 
   try {
-    const documents = await getXrayDocuments(patientId);
+    const documents = await getXrayDocuments(patientId, documentType);
     if (documents.length === 0) {
       documentList.innerHTML = '<p>No documents found</p>';
     } else {
@@ -87,7 +85,7 @@ async function deleteDocument(patientId, documentName, documentUrl) {
   }
 }
 
-function showAddDocumentModal(patientId) {
+function showAddDocumentModal(patientId, documentType) {
   const addDocumentModal = document.getElementById('addDocumentModal');
   const cancelBtn = document.getElementById('cancelAddDocument');
   const form = document.getElementById('addDocumentForm');
@@ -139,11 +137,11 @@ function showAddDocumentModal(patientId) {
     };
 
     try {
-      await uploadXrayDocument(file, patientId, metadata);
+      await uploadXrayDocument(file, patientId, metadata, documentType);
       addDocumentModal.style.display = 'none';
       form.reset();
       clearPreviewArea();
-      updateDocumentList(patientId);
+      updateDocumentList(patientId, documentType);
     } catch (error) {
       console.error('Error uploading document:', error);
       alert('Error uploading document. Please try again.');
