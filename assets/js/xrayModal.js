@@ -56,16 +56,18 @@ async function updateDocumentList(patientId, documentType) {
 
 function createDocumentListItem(doc, patientId) {
   const listItem = document.createElement('li');
+  listItem.className = 'document-item';
   listItem.innerHTML = `
-    <div class="record-card">
-      <div class="card-content">
-        <img src="${doc.url}" alt="${doc.name}" class="card-image">
-        <h3 class="headline-sm card-title">${doc.name}</h3>
-        <p class="card-text">Practitioner: ${doc.practitionerName}</p>
-        <p class="card-text">Position: ${doc.position}</p>
-        <p class="card-text">Date: ${doc.date}</p>
-        <button class="delete-btn">Delete</button>
+    <div class="document-card">
+      <div class="document-image-container">
+        <img src="${doc.url}" alt="${doc.name}" class="document-image">
       </div>
+      <div class="document-info">
+        <h3 class="document-title">${doc.name}</h3>
+        <p class="document-text">Practitioner: ${doc.practitionerName}</p>
+        <p class="document-text">Date: ${doc.date}</p>
+      </div>
+      <button class="delete-btn">Delete</button>
     </div>
   `;
 
