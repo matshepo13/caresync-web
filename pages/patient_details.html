@@ -562,45 +562,15 @@
     - custom js link
   -->
   <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/patient_details.js"></script>
 
   <!-- 
     - ionicon link
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const patientName = urlParams.get('firstName') + ' ' + urlParams.get('surname');
-      const medicalHistory = urlParams.get('medicalHistory');
-    
-      // Update patient name
-      document.querySelector('.summary-content h2').textContent = patientName;
-    
-      // Update medical history
-      document.querySelector('.summary-content p').textContent = medicalHistory || 'No medical history available';
-    
-      // Update other patient details as needed
-      // For example:
-      document.getElementById('patientAge').textContent = calculateAge(urlParams.get('dateOfBirth'));
-      document.getElementById('patientGender').textContent = urlParams.get('gender');
-      document.getElementById('patientContact').textContent = urlParams.get('contactNumber');
-      document.getElementById('patientEmail').textContent = urlParams.get('email');
-      document.getElementById('patientAddress').textContent = urlParams.get('homeAddress');
-      document.getElementById('patientMRN').textContent = urlParams.get('mrn');
-    });
-    
-    function calculateAge(birthDate) {
-      const today = new Date();
-      const birthDateObj = new Date(birthDate);
-      let age = today.getFullYear() - birthDateObj.getFullYear();
-      const monthDiff = today.getMonth() - birthDateObj.getMonth();
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
-        age--;
-      }
-      return age;
-    }
-    </script>
+
+
 
 
 </body>
