@@ -15,10 +15,16 @@
         <input type="text" name="practitionerName" placeholder="Health Practitioner Name" required>
         <input type="text" name="position" placeholder="Position" required>
         <input type="date" name="date" required>
-        <div id="dropZone">
-          Drag and drop files here or click to upload
-          <input type="file" id="fileInput" accept="image/*,.pdf" style="display: none;">
-        </div>
+        <div class="upload-container">
+            <div id="dropZone">
+              <img src="../assets/images/drag.png" alt="Drag and drop" class="drag-icon">
+              <span class="subtitle">Drop your files here<br>or Browse</span>
+              <input type="file" id="fileInput" accept="image/*,.pdf" style="display: none;">
+            </div>
+            <div id="previewArea" style="display: none;">
+              <!-- Uploaded files will be displayed here -->
+            </div>
+          </div>
         <div class="button-group">
           <button type="submit" class="btn has-before">Save</button>
           <button type="button" class="btn cancel" id="cancelAddDocument">Cancel</button>

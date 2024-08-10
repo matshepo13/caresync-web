@@ -56,17 +56,61 @@
     border-radius: var(--radius-6);
     font-family: var(--ff-rubik);
   }
+
+  .upload-container {
+    display: flex;
+    gap: 20px;
+  }
   
   #dropZone {
+    flex: 1;
     border: 2px dashed var(--gainsboro);
     padding: 20px;
     text-align: center;
     cursor: pointer;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+  
+  #dropZone::before {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+  }
+  
+  #dropZone::after {
+    content: 'Drag & Drop';
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  #dropZone .subtitle {
+    font-size: 0.9em;
+    color: #6c757d;
   }
   
   #dropZone.dragover {
     background-color: var(--light-gray);
+    border-color: var(--verdigris);
   }
+  
+  .drag-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
   
   .button-group {
     display: flex;
@@ -78,4 +122,89 @@
   .btn.cancel {
     background-color: var(--ming);
     color: var(--white);
+  }
+
+
+  #previewArea {
+    flex: 1;
+    border: 1px solid var(--gainsboro);
+    border-radius: 10px;
+    padding: 10px;
+    min-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .preview-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .preview-item:hover {
+    background-color: #e9ecef;
+  }
+  
+  .preview-item img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .preview-item span {
+    flex-grow: 1;
+    font-size: 0.9em;
+  }
+  
+  .preview-item button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+  }
+
+  .preview-item .file-size {
+    font-size: 0.8em;
+    color: #6c757d;
+    margin-right: 10px;
+  }
+  
+  .preview-item .remove-btn {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  
+  .progress-bar {
+    height: 5px;
+    background-color: #e9ecef;
+    border-radius: 2.5px;
+    overflow: hidden;
+    margin-top: 5px;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #007bff;
+    width: 0;
+    transition: width 0.3s ease;
+  }
+
+  document-display {
+    margin-top: 20px;
+    border-top: 1px solid var(--gainsboro);
+    padding-top: 20px;
+  }
+  
+  .document-display img,
+  .document-display embed {
+    max-width: 100%;
+    height: auto;
   }
