@@ -624,6 +624,38 @@ body.nav-active { overflow: hidden; }
   background-color: var(--middle-blue-green_40);
 }
 
+.patient-name-btn {
+  background: none;
+  border: none;
+  color: var(--midnight-green);
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.patient-name-btn:hover {
+  color: var(--royal-blue);
+}
+
+.patient-details {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.details-column {
+  width: 48%;
+}
+
+.details-column p {
+  margin-bottom: 10px;
+}
+
+.details-column span {
+  font-weight: bold;
+}
+
 @media screen and (max-width: 600px) {
   .patient-list-table {
     font-size: 14px;
@@ -890,50 +922,60 @@ body.nav-active { overflow: hidden; }
 }
 
 .record-card {
-  background-color: #fff;
+  background-color: var(--middle-blue-green_40);
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
-}
-
-.record-card::before,
-.record-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
   transition: var(--transition-3);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .record-card::before {
-  background-color: var(--middle-blue-green_40);
-  opacity: 0.9;
-}
-
-.record-card::after { 
+  content: '';
+  position: absolute;
+  inset: 0;
   background-color: var(--white);
-  transform: translateY(100%);
+  opacity: 0;
+  transition: var(--transition-3);
+  z-index: 0;
 }
 
-.record-card:is(:hover, :focus-within)::after { 
-  transform: translateY(0);
+.record-card:is(:hover, :focus-within)::before {
+  opacity: 1;
 }
 
 .card-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .card-title {
-  margin: 10px 15px;
   font-size: 1.2em;
+  margin-bottom: 10px;
+  color: var(--midnight-green);
 }
 
 .card-text {
-  margin: 0 15px 15px;
-  color: #666;
+  color: var(--independece);
+  margin-bottom: 15px;
+  flex-grow: 1;
 }
 
 .card-menu-btn {
@@ -943,19 +985,23 @@ body.nav-active { overflow: hidden; }
   background: none;
   border: none;
   font-size: 1.5em;
-  color: #fff;
+  color: var(--midnight-green);
   cursor: pointer;
+  z-index: 2;
 }
 
 .show-btn {
   display: none;
   background-color: transparent;
-  border: 2px solid var(--middle-blue-green_40);
+  border: 2px solid var(--midnight-green);
   color: var(--midnight-green);
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   transition: var(--transition-1);
+  align-self: flex-start;
+  margin-top: auto;
+  z-index: 2;
 }
 
 .record-card:hover .show-btn {
@@ -963,7 +1009,7 @@ body.nav-active { overflow: hidden; }
 }
 
 .show-btn:hover {
-  background-color: var(--middle-blue-green_40);
+  background-color: var(--midnight-green);
   color: var(--white);
 }
 
@@ -972,7 +1018,6 @@ body.nav-active { overflow: hidden; }
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
-
 
 
 

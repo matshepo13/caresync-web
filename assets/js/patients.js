@@ -26,17 +26,34 @@ async function loadPatients() {
   });
 }
 
-function appendPatientToTable(patientData) {
-  const table = document.querySelector('.patient-list-table tbody');
-  const newRow = table.insertRow();
-  
-  const fields = [
-    'idNumber', 'firstName', 'surname', 'dateOfBirth', 'gender',
-    'contactNumber', 'email', 'homeAddress', 'mrn', 'medicalHistory'
-  ];
 
-  fields.forEach(field => {
-    const cell = newRow.insertCell();
-    cell.textContent = patientData[field] || '';
-  });
-}
+
+function appendPatientToTable(patientData) {
+    const table = document.querySelector('.patient-list-table tbody');
+    const newRow = table.insertRow();
+    
+    const fields = [
+      'idNumber', 'firstName', 'surname', 'dateOfBirth', 'gender',
+      'contactNumber', 'email', 'homeAddress', 'mrn', 'medicalHistory'
+    ];
+  
+    fields.forEach((field, index) => {
+      const cell = newRow.insertCell();
+      if (index === 1) { // firstName
+        const nameButton = document.createElement('button');
+        nameButton.textContent = patientData[field] || '';
+        nameButton.classList.add('patient-name-btn');
+        nameButton.addEventListener('click', () => {
+          loadPatientDetails(patientData);
+        });
+        cell.appendChild(nameButton);
+      } else {
+        cell.textContent = patientData[field] || '';
+      }
+    });
+  }
+  
+  function loadPatientDetails(patientData) {
+    const params = new URLSearchParams(patientData);
+    window.location.href = `patient_details.html?${params.toString()}`;
+  }

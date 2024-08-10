@@ -157,18 +157,29 @@ function createAddPatientModal() {
 }
 
 function appendPatientToTable(patientData) {
-    const table = document.querySelector('.patient-list-table tbody');
-    const newRow = table.insertRow();
+  const table = document.querySelector('.patient-list-table tbody');
+  const newRow = table.insertRow();
+  
+  const fields = [
+    'idNumber', 'firstName', 'surname', 'dateOfBirth', 'gender',
+    'contactNumber', 'email', 'homeAddress', 'mrn', 'medicalHistory'
+  ];
 
-    const fields = [
-        'idNumber', 'firstName', 'surname', 'dateOfBirth', 'gender',
-        'contactNumber', 'email', 'homeAddress', 'mrn', 'medicalHistory'
-    ];
-
-    fields.forEach(field => {
-        const cell = newRow.insertCell();
-        cell.textContent = patientData[field] || '';
-    });
+  fields.forEach((field, index) => {
+    const cell = newRow.insertCell();
+    if (index === 1) { // firstName
+      const nameLink = document.createElement('a');
+      nameLink.textContent = patientData[field] || '';
+      nameLink.href = '#';
+      nameLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadPatientDetails(patientData);
+      });
+      cell.appendChild(nameLink);
+    } else {
+      cell.textContent = patientData[field] || '';
+    }
+  });
 }
 
 export default createAddPatientModal;

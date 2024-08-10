@@ -142,8 +142,7 @@
         <ion-icon name="menu-outline"></ion-icon>
       </button>
 
-      <a href="#" class="btn has-before title-md">Make Appointment</a>
-
+     
       <div class="overlay" data-nav-toggler data-overlay></div>
 
     </div>
@@ -165,12 +164,7 @@
     <div class="container">
       <header class="records-header">
         <h1 class="section-title headline-md" id="patient-records-label">Patient Records</h1>
-        <div class="search-bar">
-          <input type="text" placeholder="Search by patient name or date" class="search-input">
-          <button class="search-button">
-            <ion-icon name="search-outline"></ion-icon>
-          </button>
-        </div>
+        
         <div class="user-actions">
           <button class="icon-button">
             <ion-icon name="notifications-outline"></ion-icon>
@@ -180,15 +174,25 @@
           </button>
         </div>
       </header>
-  
       <div class="patient-summary">
         <img src="../assets/images/gran.png" alt="Patient Avatar" class="patient-avatar">
         <div class="summary-content">
-          <h2 class="headline-sm">Patient Summary</h2>
-          <p class="text-sm">View patient's health overview</p>
+          <h2 class="headline-sm">Patient Name</h2>
+          <p class="text-sm">Medical History</p>
         </div>
-        <button class="btn add-record">Add Record</button>
-        <button class="btn filter">Filter</button>
+      </div>
+      
+      <div class="patient-details">
+        <div class="details-column">
+          <p>Age: <span id="patientAge"></span></p>
+          <p>Gender: <span id="patientGender"></span></p>
+          <p>Contact: <span id="patientContact"></span></p>
+        </div>
+        <div class="details-column">
+          <p>Email: <span id="patientEmail"></span></p>
+          <p>Address: <span id="patientAddress"></span></p>
+          <p>MRN: <span id="patientMRN"></span></p>
+        </div>
       </div>
   
       <nav class="records-nav">
@@ -207,15 +211,18 @@
             <input type="text" placeholder="Search by test name or date" class="search-input">
             <button class="search-button">Search</button>
           </div>
-          <button class="btn view-all">View all lab test</button>
+          
         </div>
   
         <ul class="grid-list">
             <li data-reveal="bottom">
               <div class="record-card">
-                <img src="../assets/images/xraymachine.png" alt="X-Rays" class="card-image">
-                <h3 class="headline-sm card-title">X-Rays</h3>
-                <p class="card-text">View patient's x-ray images</p>
+                <div class="card-content">
+                  <img src="../assets/images/xraymachine.png" alt="X-Rays" class="card-image">
+                  <h3 class="headline-sm card-title">X-Rays</h3>
+                  <p class="card-text">View patient's x-ray images</p>
+                  <button class="show-btn">Show</button>
+                </div>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -224,9 +231,12 @@
     
             <li data-reveal="bottom">
               <div class="record-card">
+                <div class="card-content">
                 <img src="../assets/images/mrimachine.png" alt="MRI Scans" class="card-image">
                 <h3 class="headline-sm card-title">MRI Scans</h3>
                 <p class="card-text">View MRI scan results</p>
+                <button class="show-btn">Show</button>
+                </div>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -235,9 +245,12 @@
     
             <li data-reveal="bottom">
               <div class="record-card">
+                <div class="card-content">
                 <img src="../assets/images/ultra.png" alt="Ultrasounds" class="card-image">
                 <h3 class="headline-sm card-title">Ultrasounds</h3>
                 <p class="card-text">View ultrasound images</p>
+                <button class="show-btn">Show</button>
+                </div>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -246,9 +259,12 @@
     
             <li data-reveal="bottom">
               <div class="record-card">
+                <div class="card-content">
                 <img src="../assets/images/BLOODTEST.png" alt="Blood Tests" class="card-image">
                 <h3 class="headline-sm card-title">Blood Tests</h3>
                 <p class="card-text">View blood test results</p>
+                <button class="show-btn">Show</button>
+                </div>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -257,9 +273,12 @@
     
             <li data-reveal="bottom">
               <div class="record-card">
+                <div class="card-content">
                 <img src="../assets/images/medhis.png" alt="Health History" class="card-image">
                 <h3 class="headline-sm card-title">Health History</h3>
                 <p class="card-text">View patient's health timeline</p>
+                <button class="show-btn">Show</button>
+                </div>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -268,9 +287,12 @@
     
             <li data-reveal="bottom">
               <div class="record-card">
+                <div class="card-content">
                 <img src="../assets/images/medcal.png" alt="Patient Details" class="card-image">
                 <h3 class="headline-sm card-title">Appointments</h3>
                 <p class="card-text">View & add patient's appointments</p>
+                <button class="show-btn">Show</button>
+                </div>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -281,9 +303,12 @@
     
             <li data-reveal="bottom">
               <div class="record-card">
+                <div class="card-content"></div>
                 <img src="../assets/images/drtyp.png" alt="Prescriptions" class="card-image">
                 <h3 class="headline-sm card-title">Prescriptions</h3>
                 <p class="card-text">View prescribed medications</p>
+                <button class="show-btn">Show</button>
+
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -295,6 +320,7 @@
                 <img src="../assets/images/alert.png" alt="Allergies" class="card-image">
                 <h3 class="headline-sm card-title">Notifications</h3>
                 <p class="card-text">View patient sent communication</p>
+                <button class="show-btn">Show</button>
                 <button class="card-menu-btn">
                   <ion-icon name="ellipsis-vertical"></ion-icon>
                 </button>
@@ -542,6 +568,40 @@
   -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const patientName = urlParams.get('firstName') + ' ' + urlParams.get('surname');
+      const medicalHistory = urlParams.get('medicalHistory');
+    
+      // Update patient name
+      document.querySelector('.summary-content h2').textContent = patientName;
+    
+      // Update medical history
+      document.querySelector('.summary-content p').textContent = medicalHistory || 'No medical history available';
+    
+      // Update other patient details as needed
+      // For example:
+      document.getElementById('patientAge').textContent = calculateAge(urlParams.get('dateOfBirth'));
+      document.getElementById('patientGender').textContent = urlParams.get('gender');
+      document.getElementById('patientContact').textContent = urlParams.get('contactNumber');
+      document.getElementById('patientEmail').textContent = urlParams.get('email');
+      document.getElementById('patientAddress').textContent = urlParams.get('homeAddress');
+      document.getElementById('patientMRN').textContent = urlParams.get('mrn');
+    });
+    
+    function calculateAge(birthDate) {
+      const today = new Date();
+      const birthDateObj = new Date(birthDate);
+      let age = today.getFullYear() - birthDateObj.getFullYear();
+      const monthDiff = today.getMonth() - birthDateObj.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+        age--;
+      }
+      return age;
+    }
+    </script>
+
 
 </body>
 
