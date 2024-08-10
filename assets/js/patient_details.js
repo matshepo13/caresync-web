@@ -1,3 +1,4 @@
+
 console.log('patient-details.js loaded');
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,24 +1,43 @@
-import { storage, db } from './firebase-config.js';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
-import { doc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { db, storage } from './firebase-config.js';
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
 
 export async function uploadXrayDocument(file, patientId, metadata) {
-  const storageRef = ref(storage, `xrays/${patientId}/${file.name}`);
-  await uploadBytes(storageRef, file);
-  const downloadURL = await getDownloadURL(storageRef);
+  try {
+    // Upload file to Firebase Storage
+    const storageRef = ref(storage, `xrays/${patientId}/${file.name}`);
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
 
-  const patientRef = doc(db, "PatientList", patientId);
-  await updateDoc(patientRef, {
-    xrayDocuments: arrayUnion({
-      name: file.name,
-      url: downloadURL,
-      practitionerName: metadata.practitionerName,
-      position: metadata.position,
-      date: metadata.date
-    })
-  });
+    // Check if patient document exists
+    const patientRef = doc(db, "PatientList", patientId);
+    const patientDoc = await getDoc(patientRef);
 
-  return downloadURL;
+    if (patientDoc.exists()) {
+      // Update existing document
+      await updateDoc(patientRef, {
+        xrayDocuments: arrayUnion({
+          name: file.name,
+          url: downloadURL,
+          ...metadata
+        })
+      });
+    } else {
+      // Create new document
+      await setDoc(patientRef, {
+        xrayDocuments: [{
+          name: file.name,
+          url: downloadURL,
+          ...metadata
+        }]
+      });
+    }
+
+    console.log("Document successfully uploaded and stored");
+  } catch (error) {
+    console.error("Error uploading document: ", error);
+    throw error;
+  }
 }
 
 export async function deleteXrayDocument(patientId, documentName, documentUrl) {
@@ -35,10 +54,13 @@ export async function deleteXrayDocument(patientId, documentName, documentUrl) {
 }
 
 export async function getXrayDocuments(patientId) {
-    const patientRef = doc(db, "PatientList", patientId);
-    const patientDoc = await getDoc(patientRef);
-    if (patientDoc.exists()) {
-      return patientDoc.data().xrayDocuments || [];
-    }
+  const patientRef = doc(db, "PatientList", patientId);
+  const patientDoc = await getDoc(patientRef);
+  
+  if (patientDoc.exists()) {
+    return patientDoc.data().xrayDocuments || [];
+  } else {
+    console.log("No such patient!");
     return [];
   }
+}

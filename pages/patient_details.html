@@ -504,9 +504,25 @@
   <!-- 
     - custom js link
   -->
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js"></script>
   <script src="../assets/js/script.js"></script>
   <script src="../assets/js/patient_details.js"></script>
-  <script src="../assets/js/xrayModal.js"></script>
+  <script type="module" src="../assets/js/xrayModal.js"></script>
+  <script type="module">
+    import { initializeXrayModal } from '../assets/js/xrayModal.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const patientId = urlParams.get('idNumber'); // Assuming idNumber is used as patientId
+      if (patientId) {
+        initializeXrayModal(patientId);
+      } else {
+        console.error('Patient ID not found in URL parameters');
+      }
+    });
+</script>
 
   <!-- 
     - ionicon link

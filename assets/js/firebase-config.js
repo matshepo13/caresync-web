@@ -1,8 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js";
 
-
-const firebaseConfig = {
+const firebaseConfig ={
   apiKey: "AIzaSyDHnyILPuE4844-tDYBbtAjn4l7tvPXXek",
   authDomain: "caresync-a013a.firebaseapp.com",
   projectId: "caresync-a013a",
@@ -12,12 +12,10 @@ const firebaseConfig = {
 };
 
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Initialize Firestore
 const db = getFirestore(app);
+const storage = getStorage(app);
 
-export { db };
+export { db, storage };
 export { firebaseConfig };
 

@@ -1,10 +1,6 @@
-async function loadModalHTML() {
-  const response = await fetch('../pages/xrayModal.html');
-  const html = await response.text();
-  document.body.insertAdjacentHTML('beforeend', html);
-}
+import { uploadXrayDocument, deleteXrayDocument, getXrayDocuments } from './firebaseStorage.js';
 
-async function initializeXrayModal() {
+export async function initializeXrayModal(patientId) {
   await loadModalHTML();
 
   const modal = document.getElementById('xrayModal');
@@ -15,7 +11,7 @@ async function initializeXrayModal() {
     btn.addEventListener('click', () => {
       const cardTitle = btn.closest('.record-card').querySelector('.card-title').textContent;
       document.getElementById('modalTitle').textContent = cardTitle + ' Folder';
-      updateDocumentList();
+      updateDocumentList(patientId);
       modal.style.display = 'block';
     });
   });
@@ -26,17 +22,72 @@ async function initializeXrayModal() {
     }
   });
 
-  addDocumentBtn.addEventListener('click', showAddDocumentModal);
+  addDocumentBtn.addEventListener('click', () => showAddDocumentModal(patientId));
 }
 
-function updateDocumentList() {
+async function loadModalHTML() {
+  const response = await fetch('../pages/xrayModal.html');
+  const html = await response.text();
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+async function updateDocumentList(patientId) {
   const documentList = document.getElementById('documentList');
-  // Here you would typically fetch the documents from your database
-  // For now, we'll just show a placeholder message
-  documentList.innerHTML = '<p>No documents found</p>';
+  documentList.innerHTML = '';
+
+  try {
+    const documents = await getXrayDocuments(patientId);
+    if (documents.length === 0) {
+      documentList.innerHTML = '<p>No documents found</p>';
+    } else {
+      const gridList = document.createElement('ul');
+      gridList.className = 'grid-list';
+
+      documents.forEach(doc => {
+        const listItem = createDocumentListItem(doc, patientId);
+        gridList.appendChild(listItem);
+      });
+
+      documentList.appendChild(gridList);
+    }
+  } catch (error) {
+    console.error('Error fetching documents:', error);
+    documentList.innerHTML = '<p>Error loading documents</p>';
+  }
 }
 
-function showAddDocumentModal() {
+function createDocumentListItem(doc, patientId) {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    <div class="record-card">
+      <div class="card-content">
+        <img src="${doc.url}" alt="${doc.name}" class="card-image">
+        <h3 class="headline-sm card-title">${doc.name}</h3>
+        <p class="card-text">Practitioner: ${doc.practitionerName}</p>
+        <p class="card-text">Position: ${doc.position}</p>
+        <p class="card-text">Date: ${doc.date}</p>
+        <button class="delete-btn">Delete</button>
+      </div>
+    </div>
+  `;
+
+  const deleteBtn = listItem.querySelector('.delete-btn');
+  deleteBtn.addEventListener('click', () => deleteDocument(patientId, doc.name, doc.url));
+
+  return listItem;
+}
+
+async function deleteDocument(patientId, documentName, documentUrl) {
+  try {
+    await deleteXrayDocument(patientId, documentName, documentUrl);
+    updateDocumentList(patientId);
+  } catch (error) {
+    console.error('Error deleting document:', error);
+    alert('Error deleting document. Please try again.');
+  }
+}
+
+function showAddDocumentModal(patientId) {
   const addDocumentModal = document.getElementById('addDocumentModal');
   const cancelBtn = document.getElementById('cancelAddDocument');
   const form = document.getElementById('addDocumentForm');
@@ -73,14 +124,30 @@ function showAddDocumentModal() {
     handleFiles(e.target.files);
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to your server
-    console.log('Form submitted');
-    addDocumentModal.style.display = 'none';
-    form.reset();
-    clearPreviewArea();
-    updateDocumentList();
+    const file = fileInput.files[0];
+    if (!file) {
+      alert('Please select a file to upload.');
+      return;
+    }
+
+    const metadata = {
+      practitionerName: form.practitionerName.value,
+      position: form.position.value,
+      date: form.date.value
+    };
+
+    try {
+      await uploadXrayDocument(file, patientId, metadata);
+      addDocumentModal.style.display = 'none';
+      form.reset();
+      clearPreviewArea();
+      updateDocumentList(patientId);
+    } catch (error) {
+      console.error('Error uploading document:', error);
+      alert('Error uploading document. Please try again.');
+    }
   });
 }
 
@@ -206,11 +273,5 @@ function handleFileSelection(files) {
   });
 }
 
-function getFileIcon(fileType) {
-  // Return appropriate icon based on file type
-  if (fileType.startsWith('image/')) return '../assets/images/image-icon.png';
-  if (fileType === 'application/pdf') return '../assets/images/pdf-icon.png';
-  return '../assets/images/file-icon.png';
-}
 
-document.addEventListener('DOMContentLoaded', initializeXrayModal);
+
