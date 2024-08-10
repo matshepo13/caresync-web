@@ -29,13 +29,13 @@
   <!-- 
     - custom css link
   -->
-  <link rel="stylesheet" href="..../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
 
   <!-- 
     - preload images
   -->
-  <link rel="preload" as="image" href="..../assets/images/hero-banner.png">
-  <link rel="preload" as="image" href="..../assets/images/hero-bg.png">
+  <link rel="preload" as="image" href="../assets/images/hero-banner.png">
+  <link rel="preload" as="image" href="../assets/images/hero-bg.png">
 
 </head>
 
@@ -61,7 +61,7 @@
     <div class="container">
 
       <a href="#" class="logo">
-        <img src="..../assets/images/logo.svg" width="136" height="46" alt="Doclab home">
+        <img src="../assets/images/logo.svg" width="136" height="46" alt="Doclab home">
       </a>
 
       <nav class="navbar" data-navbar>
@@ -69,7 +69,7 @@
         <div class="navbar-top">
 
           <a href="#" class="logo">
-            <img src="..../assets/images/logo.svg" width="136" height="46" alt="Doclab home">
+            <img src="../assets/images/logo.svg" width="136" height="46" alt="Doclab home">
           </a>
 
           <button class="nav-close-btn" aria-label="clsoe menu" data-nav-toggler>
@@ -156,129 +156,155 @@
   <main>
     <article>
 
-     
 
-      <section class="section listing" aria-labelledby="listing-label">
-        <div class="container">
 
-          <ul class="grid-list">
-
-            <li>
-              <p class="section-subtitle title-lg" id="listing-label" data-reveal="left">Department Listing</p>
-
-              <h2 class="headline-md" data-reveal="left">Browse by Department</h2>
-            </li>
-
-            <li>
-              <div class="listing-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="..../assets/images/icon-1.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <div>
-                  <h3 class="headline-sm card-title">Psychiatry</h3>
-
-                  <p class="card-text">1 587 Patients</p>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="listing-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="..../assets/images/icon-2.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <div>
-                  <h3 class="headline-sm card-title">Gynecology</h3>
-
-                  <p class="card-text">1 879 Patients</p>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="listing-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="..../assets/images/icon-4.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <div>
-                  <h3 class="headline-sm card-title">Pulmonology</h3>
-
-                  <p class="card-text">1 657 Patients</p>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="listing-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="..../assets/images/icon-5.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <div>
-                  <h3 class="headline-sm card-title">Orthopedics</h3>
-
-                  <p class="card-text">2 768 Patients</p>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="listing-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="..../assets/images/icon-6.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <div>
-                  <h3 class="headline-sm card-title">Pediatrics</h3>
-
-                  <p class="card-text">3 000 Patients</p>
-                </div>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="listing-card" data-reveal="bottom">
-
-                <div class="card-icon">
-                  <img src="..../assets/images/icon-7.png" width="71" height="71" loading="lazy" alt="icon">
-                </div>
-
-                <div>
-                  <h3 class="headline-sm card-title">Osteology</h3>
-
-                  <p class="card-text">907 Patients</p>
-                </div>
-
-              </div>
-            </li>
-
-          </ul>
-
+     <!-- 
+    - #BLOG
+  -->
+  <section class="section patient-records" aria-labelledby="patient-records-label">
+    <div class="container">
+      <header class="records-header">
+        <h1 class="section-title headline-md" id="patient-records-label">Patient Records</h1>
+        <div class="search-bar">
+          <input type="text" placeholder="Search by patient name or date" class="search-input">
+          <button class="search-button">
+            <ion-icon name="search-outline"></ion-icon>
+          </button>
         </div>
-      </section>
-
-
-
-
-
-      <!-- 
-        - #BLOG
-      -->
-
-      
+        <div class="user-actions">
+          <button class="icon-button">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </button>
+          <button class="icon-button">
+            <ion-icon name="person-outline"></ion-icon>
+          </button>
+        </div>
+      </header>
+  
+      <div class="patient-summary">
+        <img src="../assets/images/gran.png" alt="Patient Avatar" class="patient-avatar">
+        <div class="summary-content">
+          <h2 class="headline-sm">Patient Summary</h2>
+          <p class="text-sm">View patient's health overview</p>
+        </div>
+        <button class="btn add-record">Add Record</button>
+        <button class="btn filter">Filter</button>
+      </div>
+  
+      <nav class="records-nav">
+        <ul>
+          <li><a href="#" class="active">Lab Tests</a></li>
+          <li><a href="#">X-Rays</a></li>
+          <!-- Add more navigation items as needed -->
+        </ul>
+      </nav>
+  
+      <div class="lab-section">
+        <div class="lab-header">
+          <h3 class="headline-sm">Lab</h3>
+          
+          <div class="search-bar">
+            <input type="text" placeholder="Search by test name or date" class="search-input">
+            <button class="search-button">Search</button>
+          </div>
+          <button class="btn view-all">View all lab test</button>
+        </div>
+  
+        <ul class="grid-list">
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/xraymachine.png" alt="X-Rays" class="card-image">
+                <h3 class="headline-sm card-title">X-Rays</h3>
+                <p class="card-text">View patient's x-ray images</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/mrimachine.png" alt="MRI Scans" class="card-image">
+                <h3 class="headline-sm card-title">MRI Scans</h3>
+                <p class="card-text">View MRI scan results</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/ultra.png" alt="Ultrasounds" class="card-image">
+                <h3 class="headline-sm card-title">Ultrasounds</h3>
+                <p class="card-text">View ultrasound images</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/BLOODTEST.png" alt="Blood Tests" class="card-image">
+                <h3 class="headline-sm card-title">Blood Tests</h3>
+                <p class="card-text">View blood test results</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/medhis.png" alt="Health History" class="card-image">
+                <h3 class="headline-sm card-title">Health History</h3>
+                <p class="card-text">View patient's health timeline</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/medcal.png" alt="Patient Details" class="card-image">
+                <h3 class="headline-sm card-title">Appointments</h3>
+                <p class="card-text">View & add patient's appointments</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/drtyp.png" alt="Prescriptions" class="card-image">
+                <h3 class="headline-sm card-title">Prescriptions</h3>
+                <p class="card-text">View prescribed medications</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+    
+            <li data-reveal="bottom">
+              <div class="record-card">
+                <img src="../assets/images/alert.png" alt="Allergies" class="card-image">
+                <h3 class="headline-sm card-title">Notifications</h3>
+                <p class="card-text">View patient sent communication</p>
+                <button class="card-menu-btn">
+                  <ion-icon name="ellipsis-vertical"></ion-icon>
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+    </div>
+  
+  </section>
 
     </article>
   </main>
@@ -291,7 +317,7 @@
     - #FOOTER
   -->
 
-  <footer class="footer" style="background-image: url('..../assets/images/footer-bg.png')">
+  <footer class="footer" style="background-image: url('../assets/images/footer-bg.png')">
     <div class="container">
 
       <div class="section footer-top">
@@ -299,7 +325,7 @@
         <div class="footer-brand" data-reveal="bottom">
 
           <a href="#" class="logo">
-            <img src="..../assets/images/logo.svg" width="136" height="46" loading="lazy" alt="Doclab home">
+            <img src="../assets/images/logo.svg" width="136" height="46" loading="lazy" alt="Doclab home">
           </a>
 
           <ul class="contact-list has-after">
@@ -509,7 +535,7 @@
   <!-- 
     - custom js link
   -->
-  <script src="..../assets/js/script.js"></script>
+  <script src="../assets/js/script.js"></script>
 
   <!-- 
     - ionicon link
