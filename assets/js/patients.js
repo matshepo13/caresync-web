@@ -54,6 +54,9 @@ function appendPatientToTable(patientData) {
   }
   
   function loadPatientDetails(patientData) {
-    const params = new URLSearchParams(patientData);
+    const params = new URLSearchParams({
+      ...patientData,
+      idNumber: patientData.idNumber // Ensure idNumber is included
+    });
     window.location.href = `patient_details.html?${params.toString()}`;
   }

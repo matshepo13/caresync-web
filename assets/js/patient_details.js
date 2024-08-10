@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateElement('patientContact', urlParams.get('contactNumber'));
   updateElement('patientEmail', urlParams.get('email'));
   updateElement('patientAddress', urlParams.get('homeAddress'));
+  updateElement('patientIdNumber', urlParams.get('idNumber'));
   updateElement('patientMRN', urlParams.get('mrn'));
 });
 
