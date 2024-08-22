@@ -1,4 +1,11 @@
 import { uploadXrayDocument, deleteXrayDocument, getXrayDocuments } from './firebaseStorage.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+import { firebaseConfig } from './firebase-config.js';
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export async function initializeXrayModal(patientId) {
   await loadModalHTML();
@@ -6,14 +13,23 @@ export async function initializeXrayModal(patientId) {
   const modal = document.getElementById('xrayModal');
   const showBtns = document.querySelectorAll('.show-btn');
   const addDocumentBtn = document.getElementById('addDocumentBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+
+  closeModalBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
 
   showBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const cardTitle = btn.closest('.record-card').querySelector('.card-title').textContent;
-      document.getElementById('modalTitle').textContent = cardTitle + ' Folder';
-      const documentType = cardTitle.toLowerCase(); // Use the card title as the document type
-      updateDocumentList(patientId, documentType);
-      modal.style.display = 'block';
+      if (cardTitle === 'Appointments') {
+        showAppointmentModal(patientId);
+      } else {
+        document.getElementById('modalTitle').textContent = cardTitle + ' Folder';
+        const documentType = cardTitle.toLowerCase(); // Use the card title as the document type
+        updateDocumentList(patientId, documentType);
+        modal.style.display = 'block';
+      }
     });
   });
 
@@ -27,6 +43,101 @@ async function loadModalHTML() {
   const response = await fetch('../pages/xrayModal.html');
   const html = await response.text();
   document.body.insertAdjacentHTML('beforeend', html);
+}
+
+function showAppointmentModal(patientId) {
+  const appointmentModal = document.getElementById('appointmentModal');
+  if (!appointmentModal) {
+    loadAppointmentModalHTML().then(() => {
+      document.getElementById('appointmentModal').style.display = 'block';
+      initializeAppointmentModal(patientId);
+    });
+  } else {
+    appointmentModal.style.display = 'block';
+    initializeAppointmentModal(patientId);
+  }
+}
+
+async function loadAppointmentModalHTML() {
+  const response = await fetch('../pages/appointmentModal.html');
+  const html = await response.text();
+  document.body.insertAdjacentHTML('beforeend', html);
+}
+
+async function initializeAppointmentModal(patientId) {
+  const addAppointmentBtn = document.getElementById('addAppointmentBtn');
+  const closeAppointmentModalBtn = document.getElementById('closeAppointmentModalBtn');
+  const addAppointmentForm = document.getElementById('addAppointmentForm');
+  const cancelAddAppointmentBtn = document.getElementById('cancelAddAppointment');
+
+  addAppointmentBtn.addEventListener('click', showAddAppointmentModal);
+  closeAppointmentModalBtn.addEventListener('click', hideAppointmentModal);
+  cancelAddAppointmentBtn.addEventListener('click', hideAddAppointmentModal);
+
+  addAppointmentForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(addAppointmentForm);
+    const appointmentData = {
+      appointmentDateTime: formData.get('appointmentDateTime'),
+      department: formData.get('department'),
+      doctorName: formData.get('doctorName'),
+      reason: formData.get('reason')
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, `Appointments_${patientId}`), appointmentData);
+      console.log("Appointment scheduled with ID: ", docRef.id);
+      alert("Appointment scheduled successfully!");
+      appendAppointmentToTable(appointmentData);
+      hideAddAppointmentModal();
+    } catch (error) {
+      console.error("Error scheduling appointment: ", error);
+      alert("Error scheduling appointment. Please try again.");
+    }
+  });
+
+  function showAddAppointmentModal() {
+    document.getElementById('addAppointmentModal').style.display = 'block';
+  }
+
+  function hideAppointmentModal() {
+    document.getElementById('appointmentModal').style.display = 'none';
+  }
+
+  function hideAddAppointmentModal() {
+    document.getElementById('addAppointmentModal').style.display = 'none';
+    addAppointmentForm.reset();
+  }
+
+  // Load existing appointments
+  loadAppointments(patientId);
+}
+
+async function loadAppointments(patientId) {
+  const appointmentsCollection = collection(db, `Appointments_${patientId}`);
+  const querySnapshot = await getDocs(appointmentsCollection);
+  querySnapshot.forEach((doc) => {
+    appendAppointmentToTable(doc.data());
+  });
+}
+
+function appendAppointmentToTable(appointmentData) {
+  const tableBody = document.querySelector('.patient-list-table tbody');
+  const newRow = tableBody.insertRow();
+
+  const fields = ['appointmentDateTime', 'department', 'doctorName', 'reason'];
+
+  fields.forEach(field => {
+    const cell = newRow.insertCell();
+    if (field === 'appointmentDateTime') {
+      const dateTime = new Date(appointmentData[field]);
+      const formattedDateTime = `${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`;
+      cell.textContent = formattedDateTime;
+      cell.classList.add('date-time');
+    } else {
+      cell.textContent = appointmentData[field] || '';
+    }
+  });
 }
 
 async function updateDocumentList(patientId, documentType) {
@@ -272,6 +383,5 @@ function handleFileSelection(files) {
     previewArea.appendChild(previewItem);
   });
 }
-
 
 

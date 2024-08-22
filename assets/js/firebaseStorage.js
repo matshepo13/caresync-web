@@ -1,5 +1,5 @@
 import { db, storage } from './firebase-config.js';
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
 
 export async function uploadXrayDocument(file, patientId, metadata, documentType) {
@@ -61,5 +61,16 @@ export async function getXrayDocuments(patientId, documentType) {
   } else {
     console.log("No such patient!");
     return [];
+  }
+}
+
+export async function addAppointment(patientId, appointmentData) {
+  try {
+    const docRef = await addDoc(collection(db, `Appointments_${patientId}`), appointmentData);
+    console.log("Appointment scheduled with ID: ", docRef.id);
+    alert("Appointment scheduled successfully!");
+  } catch (error) {
+    console.error("Error scheduling appointment: ", error);
+    alert("Error scheduling appointment. Please try again.");
   }
 }

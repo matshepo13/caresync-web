@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Modal</title>
+    <link rel="stylesheet" href="../assets/css/xrayModal.css">
+    <link rel="stylesheet" href="../assets/css/appointment.css">
+</head>
+<body>
+    <div id="appointmentModal" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Appointments</h2>
+            <div id="appointmentList">
+                <table class="patient-list-table">
+                    <thead>
+                        <tr>
+                            <th>Date and Time</th>
+                            <th>Department</th>
+                            <th>Doctor</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Appointments will be dynamically added here -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="addAppointmentBtn" class="btn has-before">Add Appointment</button>
+            <button id="closeAppointmentModalBtn" class="close-modal-btn">X</button>
+        </div>
+    </div>
+
+    <div id="addAppointmentModal" class="modal">
+        <div class="modal-content">
+            <h2>Add Appointment</h2>
+            <form id="addAppointmentForm">
+                <input type="datetime-local" name="appointmentDateTime" placeholder="Appointment Date and Time" required>
+                <select name="department" required>
+                    <option value="">Select Department</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                </select>
+                <select name="doctorName" required>
+                    <option value="">Select Doctor</option>
+                    <option value="Dr. Smith">Dr. Smith</option>
+                    <option value="Dr. Johnson">Dr. Johnson</option>
+                    <option value="Dr. Williams">Dr. Williams</option>
+                    <option value="Dr. Brown">Dr. Brown</option>
+                    <option value="Dr. Jones">Dr. Jones</option>
+                    <option value="Dr. Garcia">Dr. Garcia</option>
+                </select>
+                <textarea name="reason" placeholder="Reason for Appointment" required></textarea>
+                <div class="button-group">
+                    <button type="submit" class="btn has-before">Save</button>
+                    <button type="button" class="btn cancel" id="cancelAddAppointment">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/appointmentModal.js"></script>
+</body>
+</html>
