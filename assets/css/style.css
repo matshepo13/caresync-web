@@ -1046,7 +1046,7 @@ body.nav-active { overflow: hidden; }
   border-radius: var(--radius-6);
 }
 
-.footer .logo { margin-block-end: 20px; }
+.footer .logo.svg { margin-block-end: 20px; }
 
 .contact-item {
   display: flex;
@@ -1455,7 +1455,7 @@ body.nav-active { overflow: hidden; }
     align-items: center;
   }
 
-  .footer .logo { margin-block-end: 0; }
+  .footer .logo.svg { margin-block-end: 0; }
 
   .contact-list { justify-content: space-between; }
 

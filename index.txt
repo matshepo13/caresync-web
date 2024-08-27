@@ -1,6 +1,6 @@
 Doclab - home
 
-This is a madical html template made by codewithsadee
+This is a madical html template made by codewithmatshepo
 
 
 
@@ -19,11 +19,11 @@ Services
 Blog
 Contact
 
-<ion-icon name="logo-twitter"></ion-icon>
-<ion-icon name="logo-facebook"></ion-icon>
-<ion-icon name="logo-pinterest"></ion-icon>
-<ion-icon name="logo-instagram"></ion-icon>
-<ion-icon name="logo-youtube"></ion-icon>
+<ion-icon name="logo.svg-twitter"></ion-icon>
+<ion-icon name="logo.svg-facebook"></ion-icon>
+<ion-icon name="logo.svg-pinterest"></ion-icon>
+<ion-icon name="logo.svg-instagram"></ion-icon>
+<ion-icon name="logo.svg-youtube"></ion-icon>
 
 aria-label = open menu
 <ion-icon name="menu-outline"></ion-icon>
@@ -204,13 +204,13 @@ Subscribe
 
 Get the latest updates via email. Any time you may unsubscribe
 
-&copy; Doclab 2022 | All Rights Reserved by codewithsadee
+&copy; Doclab 2022 | All Rights Reserved by codewithmatshepo
 
-<ion-icon name="logo-facebook"></ion-icon>
-<ion-icon name="logo-twitter"></ion-icon>
-<ion-icon name="logo-google"></ion-icon>
-<ion-icon name="logo-linkedin"></ion-icon>
-<ion-icon name="logo-pinterest"></ion-icon>
+<ion-icon name="logo.svg-facebook"></ion-icon>
+<ion-icon name="logo.svg-twitter"></ion-icon>
+<ion-icon name="logo.svg-google"></ion-icon>
+<ion-icon name="logo.svg-linkedin"></ion-icon>
+<ion-icon name="logo.svg-pinterest"></ion-icon>
 
 
 

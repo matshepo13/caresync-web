@@ -720,7 +720,7 @@
     border-radius: var(--radius-6);
   }
   
-  .footer .logo { margin-block-end: 20px; }
+  .footer .logo.svg { margin-block-end: 20px; }
   
   .contact-item {
     display: flex;
@@ -1129,7 +1129,7 @@
       align-items: center;
     }
   
-    .footer .logo { margin-block-end: 0; }
+    .footer .logo.svg { margin-block-end: 0; }
   
     .contact-list { justify-content: space-between; }
   
